@@ -4,6 +4,7 @@ import Form  from './components/Form';
 import Header from './components/Header';
 import Users from './components/Users';
 import {schema} from './validation/formSchema';
+import {Route, Switch, Link} from 'react-router-dom';
 import axios from 'axios';
 import * as yup from 'yup';
 const initialValues = {
@@ -21,6 +22,7 @@ function App() {
   const [isValid,setIsValid] = useState(true);
   const [errors, setErrors] = useState({});
   const [users, setUsers] = useState({});
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const changeValues = (name,value) =>{
     yup.reach(schema,name)
     .validate(value)
@@ -29,6 +31,7 @@ function App() {
     setFormValues({...formValues,[name]:value});
   };
   const submitForm = () =>{
+    setIsLoggedIn(true);
     axios.post('https://reqres.in/api/users',formValues)
     .then((r)=>{
       setFormValues(initialValues);
@@ -46,7 +49,19 @@ function App() {
     <div className="App">
       <Header />
       <main>
-        <Form formValues={formValues} changeValues={changeValues} submitForm={submitForm} isValid={isValid} errors={errors}></Form>
+        <Switch>
+          <Route path='/form'>
+            <Form formValues={formValues} changeValues={changeValues} submitForm={submitForm} isValid={isValid} errors={errors} isLoggedIn={isLoggedIn}></Form>
+          </Route>
+          <Route path='/'>
+            {isLoggedIn?        
+              <div>Welcome!</div>:
+              <Link to='/form/account'>
+                <button>Signup</button>
+              </Link>
+            }
+          </Route>
+        </Switch>
         <Users users={users}/>
       </main>
     </div>

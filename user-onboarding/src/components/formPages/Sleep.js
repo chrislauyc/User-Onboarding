@@ -12,6 +12,7 @@ function Sleep(props){
     };
     return(
         <div>
+            <img src='/assets/sleep.png' alt='account'></img>
             <input type='number' name='bedtime' onChange={onChange} value={formValues.bedtime}>
             </input>
             <select name='hoursOfSleep' onChange={onChange} value={formValues.hoursOfSleep}>
@@ -20,7 +21,7 @@ function Sleep(props){
                     hourArray().map((t)=><option key={uuid()} value={t}>{t}</option>)
                 }
             </select>
-            <Link to=''>
+            <Link to='/form/sleep'>
                 <button>Back</button>
             </Link>
         </div>
