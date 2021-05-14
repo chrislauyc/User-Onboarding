@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom';
 function PInfo(props){
     const {formValues,onChange,errors} = props;
     const isValid = () =>{
-        let errorsFound = Object.keys(errors).filter((key)=>(
-            (key==='first_name'||key==='last_name'||key==='birthdate')&&errors[key]!==''
+        let errorsInitialized = Object.keys(errors).filter((key)=>(
+            (key==='first_name'||key==='last_name'||key==='birthdate')
         ));
-        return(errorsFound.length===0);
+        let errorsFound = errorsInitialized.filter((key)=>(
+            errors[key]!==''
+        ));
+        return(errorsFound.length===0&&errorsInitialized.length===3);
     };
     return(
         <div>

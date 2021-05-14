@@ -3,10 +3,13 @@ import {Link} from 'react-router-dom';
 function Account(props){
     const {formValues,onChange,errors} = props;
     const isValid = () =>{
-        let errorsFound = Object.keys(errors).filter((key)=>(
-            (key==='email'||key==='password'||key==='terms')&&errors[key]!==''
+        let errorsInitialized = Object.keys(errors).filter((key)=>(
+            (key==='email'||key==='password'||key==='terms')
+        )); 
+        let errorsFound = errorsInitialized.filter((key)=>(
+            errors[key]!==''
         ));
-        return(errorsFound.length===0);
+        return(errorsFound.length===0&&errorsInitialized.length===3);
     };
     return(
         <div>
