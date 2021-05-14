@@ -21,7 +21,7 @@ function Sleep(props){
                     hourArray().map((t)=><option key={uuid()} value={t}>{t}</option>)
                 }
             </select>
-            <Link to='/form/sleep'>
+            <Link to='/form/personalinfo'>
                 <button>Back</button>
             </Link>
         </div>
