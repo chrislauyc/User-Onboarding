@@ -78,9 +78,18 @@ describe('On boarding app',()=>{
                 const goToSleep =()=>{
                     cy.get('[href="/form/sleep"] > button').click();
                 };
+                const submit=()=>{
+                    enterSleep();
+                    cy.get('[type="submit"]').should('not.be.disabled');
+                    cy.get('[type="submit"]').click();
+                };
+
                 beforeEach(()=>{
                     enterPersonal();
                     goToSleep();
+                });
+                it('submit disabled',()=>{
+                    cy.get('[type="submit"]').should('be.disabled');
                 });
                 it('renders correctly',()=>{
                     back().should('exist');
@@ -93,10 +102,9 @@ describe('On boarding app',()=>{
                     bedtime().should('have.value',bedtimeValue);
                 });
                 it('can submit',()=>{
-                    enterSleep();
-                    cy.get('[type="submit"]').should('not.be.disabled');
-                    cy.get('[type="submit"]').click();
-                    cy.url().should('have.value','http://localhost:3000/');
+                    submit();
+                    cy.contains(`Name: ${firstNameValue} ${lastNameValue}`);
+                    cy.contains('Email: '+emailValue).should('exist');
                 });
             });
         });
