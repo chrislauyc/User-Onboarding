@@ -5,6 +5,8 @@ import Header from './components/Header';
 import Users from './components/Users';
 import {schema} from './validation/formSchema';
 import {Route, Switch, Link} from 'react-router-dom';
+import {Container,Button} from '@material-ui/core';
+import styled from 'styled-components';
 import axios from 'axios';
 import * as yup from 'yup';
 const initialValues = {
@@ -51,15 +53,18 @@ function App() {
       <main>
         <Switch>
           <Route path='/form'>
-            <Form formValues={formValues} changeValues={changeValues} submitForm={submitForm} isValid={isValid} errors={errors} isLoggedIn={isLoggedIn}></Form>
+            <Container>
+              <Form formValues={formValues} changeValues={changeValues} submitForm={submitForm} isValid={isValid} errors={errors} isLoggedIn={isLoggedIn}></Form>
+            </Container>
           </Route>
           <Route path='/'>
-            {isLoggedIn?        
-              <div>Welcome!</div>:
-              <Link to='/form/account'>
-                <button>Signup</button>
-              </Link>
-            }
+            <Container>
+              {isLoggedIn?        
+                <div>Welcome!</div>:
+                <Button component={Link} to='/form/account'>Signup</Button>
+              }
+              <StyledImg src='/assets/Koala_Sleep.jpg'></StyledImg>
+            </Container>
           </Route>
         </Switch>
         <Users users={users}/>
@@ -69,3 +74,6 @@ function App() {
 }
 
 export default App;
+const StyledImg = styled.img`
+  max-width:100%;
+`;
